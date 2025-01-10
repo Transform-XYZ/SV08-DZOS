@@ -1,16 +1,20 @@
-DZOS: DYNAMIC Z OFFSET AND SOAK
-AUTHOR: TRANSFORM
-CURRENT VERSION: 0.1.34
-VERSION DATE: 2025-01-10
-WORK IN PROGRESS
+**DZOS: DYNAMIC Z OFFSET AND SOAK**
+
+**AUTHOR:** TRANSFORM
+
+**CURRENT VERSION:** 0.1.34
+
+**VERSION DATE:** 2025-01-10
+
+**WORK IN PROGRESS**
 
 
-Set of code/macro's to calculate the z offset per print instead of relying on a static value.
+
 
 # DISCLAIMER:
 1. This is beta software, use your best judgement if it's right for you.
 2. This is made for the sv08 only!
-3. Does not work on mainline.. Yet!
+3. Currently not supporting SV08-Mainline. Coming soon.
 
 
 # INSTALL:
