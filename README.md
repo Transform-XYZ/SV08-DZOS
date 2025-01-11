@@ -14,6 +14,7 @@
 # DISCLAIMER:
 1. This is beta software, use your best judgement if it's right for you.
 2. Stock SV08 support only. Refer to Stock folder. When mainline klipper is working, a mainline folder will be added.
+3. Dynamic soaking coming in a future version.
 
 
 # INSTALL:
