@@ -13,8 +13,7 @@
 
 # DISCLAIMER:
 1. This is beta software, use your best judgement if it's right for you.
-2. Sovol SV08 only!
-3. Currently not supporting SV08-Mainline. Coming soon!
+2. Stock SV08 support only. Refer to Stock folder. When mainline klipper is working, a mainline folder will be added.
 
 
 # INSTALL:
