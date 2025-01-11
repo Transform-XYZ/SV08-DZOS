@@ -31,5 +31,6 @@ just add the DZOS call and remove the replacement from the macro in the same pla
 3. Run the following macro: DZOS_INIT_SETUP.
 4. Follow the on screen instuctions carefully!
 5. Once you printer reboots each print will calculate the z
-6. DZOS Disable macro will stop the code from running. No other changes required for disabling.
+6. DZOS Disable macro will stop the code from running. You should also move the [include dzod.cfg] from the bottom, to the top of your printer.cfg to avoid [homing_override] issues.
+7. Happy testing!
 
