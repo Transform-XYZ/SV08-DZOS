@@ -13,8 +13,8 @@
 
 # DISCLAIMER:
 1. This is beta software, use your best judgement if it's right for you.
-2. This is made for the sv08 only!
-3. Currently not supporting SV08-Mainline. Coming soon.
+2. Sovol SV08 only!
+3. Currently not supporting SV08-Mainline. Coming soon!
 
 
 # INSTALL:
