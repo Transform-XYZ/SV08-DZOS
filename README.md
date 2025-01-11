@@ -19,7 +19,7 @@
 
 # INSTALL:
 1. Use winSCP or any method to access the sv08 filesystem. (user: sovol password: sovol)
-2. Drag and drop the two folders provided into the /home/sovol folder.
+2. Drag and drop the two folders (klipper and printer_data) provided into the /home/sovol folder.
 3. Restart printer completely!
 4. Add [include dzos.cfg] to the bottom of your printer.cfg above the commented out part.
 5. The dzos.cfg overrides your PRINT_START and [homing_override]. [homing_override] changes are mandatory but if you'd like to adjust your own PRINT_START, 
