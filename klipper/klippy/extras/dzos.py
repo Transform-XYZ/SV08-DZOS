@@ -2,7 +2,7 @@
 # DZOS: DYNAMIC Z OFFSET AND SOAK
 # AUTHOR: TRANSFORM
 # DATE: 2025-01-12
-# VERSION: 0.1.37
+# VERSION: 0.1.38
 ######################################################################################################################################################################################################
 import json
 import os
@@ -218,7 +218,7 @@ class DZOS:
 
     def _generic_z_probe(self, gcmd, probe_object, x, y, zero=False, hop=True):
         version = str(self.printer.start_args['software_version'])
-        if version.startswith('v0.12.0-0-g'):
+        if version.startswith('v0.12.0-0-g') or probe_object == self.probe_pressure_object:
             return self._stock_z_probe(gcmd, probe_object, x, y, zero, hop)
         else:
             return self._latest_z_probe(gcmd, probe_object, x, y, zero, hop)

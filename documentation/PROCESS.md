@@ -3,8 +3,6 @@
 
 # DZOS: Dynamic Z Offset and Soaking
 
-**Latest: 0.1.37**
-
 ## PRE-REQUISITES:
 1. SV08 3D Printer with an inductive sensor.
 2. File transfer software (examples below):

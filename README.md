@@ -3,7 +3,7 @@
 
 # DZOS: Dynamic Z Offset and Soaking
 
-**Latest: 0.1.37**
+**Latest: 0.1.38**
 
 ## GOAL:
 1. Solve the SV08 bed and Z issues.
