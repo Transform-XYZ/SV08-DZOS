@@ -1,5 +1,5 @@
 
-![LOGO](./documentation/images/dzos_logo.png)
+![LOGO](./images/dzos_logo.png)
 
 # DZOS: Dynamic Z Offset and Soaking
 
