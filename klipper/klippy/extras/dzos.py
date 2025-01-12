@@ -2,7 +2,7 @@
 # DZOS: DYNAMIC Z OFFSET AND SOAK
 # AUTHOR: TRANSFORM
 # DATE: 2025-01-12
-# VERSION: 0.1.36
+# VERSION: 0.1.37
 ######################################################################################################################################################################################################
 import json
 import os
@@ -14,7 +14,6 @@ static_filepath = "/home/sovol/printer_data/config/dzos_static_data.json"
 print_data_filepath = "/home/sovol/printer_data/config/dzos_print_data.json"
 ######################################################################################################################################################################################################
 
-print()
 
 class DZOS:
     def __init__(self, config):
@@ -242,7 +241,7 @@ class DZOS:
             self._execute_hop_z(self.hop_z)
             self.toolhead.manual_move([x, y, None], self.speed)
         probe_session = probe_object.start_probe_session(gcmd)
-        probe_session.run_probe()
+        probe_session.run_probe(gcmd)
         probe_z = probe_session.pull_probed_results()[0][2]
         probe_session.end_probe_session()
         if zero:

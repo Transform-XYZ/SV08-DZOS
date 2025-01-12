@@ -3,9 +3,9 @@
 
 # DZOS: Dynamic Z Offset and Soaking
 
-**Latest: 0.1.36**
+**Latest: 0.1.37**
 
-## PREREQUISITES:
+## PRE-REQUISITES:
 1. SV08 3D Printer with an inductive sensor.
 2. File transfer software (examples below):
     - [FileZilla](https://filezilla-project.org/)
@@ -24,7 +24,7 @@
 
 ## SETUP:
 1. The setup process for DZOS only needs to be done when required. If you change your nozzle dimensions or probe you need to re-run the setup.
-2. **IMPORTANT:** Wait for your printer to be [cool and at room temperature] for setup.
+2. **IMPORTANT:** Wait for your printer to be `cool and at room temperature` for setup.
 3. Navigate to the web interface for your printer.
 4. Under the MACRO section press: `DZOS Enable`. Once pressed hit `SAVE CONFIG` and wait for your printer to restart.
 5. Run the following macro: `DZOS INIT SETUP`.
