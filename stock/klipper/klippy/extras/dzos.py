@@ -53,6 +53,16 @@ class DZOS:
         enable = int(gcmd.get("ENABLE", -1))
         test_name = gcmd.get("TEST", None)
 
+        if enable == 1:
+            self.global_configfile.set(self.config_name, "enabled", 1)
+            gcmd.respond_info("DZOS: Enabled!")
+            self._display_msg("DZOS: Enabled!")
+            return
+        elif enable == 0:
+            self.global_configfile.set(self.config_name, "enabled", 0)
+            gcmd.respond_info("DZOS: Disabled!")
+            self._display_msg("DZOS: Disabled!")
+            return
         if not self.dzos_enabled:
             gcmd.respond_info("DZOS: Disabled!")
             self._display_msg("DZOS: Disabled!")
@@ -65,16 +75,7 @@ class DZOS:
         if test_name:
             self._calculate_static_data(gcmd, test_name, soak_time)
             return            
-        elif enable == 1:
-            self.global_configfile.set(self.config_name, "enabled", 1)
-            gcmd.respond_info("DZOS: Enabled!")
-            self._display_msg("DZOS: Enabled!")
-            return
-        elif enable == 0:
-            self.global_configfile.set(self.config_name, "enabled", 0)
-            gcmd.respond_info("DZOS: Disabled!")
-            self._display_msg("DZOS: Disabled!")
-            return
+
         if not os.path.exists(static_filepath):
             gcmd.respond_info("DZOS: No Static Data Found!")
             self._display_msg("DZOS: No Static!")
