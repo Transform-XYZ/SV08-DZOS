@@ -3,6 +3,10 @@
 
 ## RELEASE NOTES:
 
+### 0.1.40
+- Added simple START_PRINT macro for optimized usage.
+- Documentation clarifications.
+
 ### 0.1.39
 - Fixed pathing to be relative.
 - Removed hiding "." from beginning of dzos_test_combined.gcode.
@@ -20,6 +24,8 @@
 
 ### 0.1.34
 - Initial release. Tested on stock sv08.
+
+
 
 
 
