@@ -8,7 +8,6 @@
 2. File transfer software (examples below):
     - [FileZilla](https://filezilla-project.org/)
     - [winSCP](https://winscp.net/)
-3. `START_PRINT` using an adaptive bed mesh and input temperature from slicer.
 
 ## INSTALL:
 1. Access the SV08 filesystem. (`user: sovol` - `password: sovol`)
@@ -18,7 +17,8 @@
 5. The `dzos.cfg` overrides your `START_PRINT`.
 
 ## CONFIGURATION:
-1. If you'd like to adjust your own `START_PRINT`, add the DZOS call: `DZOS_Z_OFFSET TEMP=<INPUT TEMP> SOAK_TIME=<INPUT SECONDS>` just before: `BED_MESH_CALIBRATE ADAPTIVE=1`. Remove the included `START_PRINT` from the provided `dzos.cfg` macro.
+1. If you'd like to adjust your own `START_PRINT`, add the DZOS call: `DZOS_Z_OFFSET TEMP=<INPUT TEMP> SOAK_TIME=<INPUT SECONDS>` just before: `BED_MESH_CALIBRATE ADAPTIVE=1`. 
+2. Remove the included `START_PRINT` from the provided `dzos.cfg` macro.
 
 ## SETUP:
 1. The setup process for DZOS only needs to be done when required. If you change your nozzle dimensions or probe you need to re-run the setup.
@@ -43,8 +43,7 @@
 
 ## USAGE:
 1. Print as normal. The Z offset will calculate per print.
-2. Use a custom `START_PRINT` with temperature input from your slicer. Add to the DZOS call for best results. 
-3. Happy testing!
+2. Happy testing!
 
 ## DISABLE/RE-ENABLE:
 1. `DZOS Disable` macro will stop the code from running. No other changes required.
