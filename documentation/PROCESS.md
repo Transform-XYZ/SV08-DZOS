@@ -15,7 +15,7 @@
 2. Transfer provided files to their respective folders in `/home/sovol/...`.
 3. Restart Klipper service or hard reboot printer.
 4. Edit `printer.cfg`:
-    - In `[probe]`, or the saved bottom section, alter this line as follows `z_offset: 0.0`.
+    - In `[probe]` or the saved bottom section, alter this line as follows `z_offset: 0.0`.
     - Add `[include dzos.cfg]` to your `printer.cfg` after other `[include]` lines.
 5. Save `printer.cfg` changes and restart.
 
