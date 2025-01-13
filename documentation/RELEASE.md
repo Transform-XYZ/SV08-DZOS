@@ -3,6 +3,10 @@
 
 ## RELEASE NOTES:
 
+### 0.1.41
+- Added new _DZOS_PRINT macro for handing printing.
+- Added configurable soak time macro DZOS_SOAK_TIME. Temporarily caches a soak time that will be accessed at print.
+
 ### 0.1.40
 - Added simple START_PRINT macro for optimized usage.
 - Documentation clarifications.

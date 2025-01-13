@@ -14,12 +14,12 @@
 1. Access the SV08 filesystem. (`user: sovol` - `password: sovol`)
 2. Transfer provided files to their respective folders in `/home/sovol/...`.
 3. Restart Klipper service or hard reboot printer.
-4. Edit your existing `z_offset` to `0.0` (Not required but makes dialing it easier)
+4. Edit your existing `z_offset` to `0.0` (Not required but makes dialing it easier).
 5. Add `[include dzos.cfg]` to your `printer.cfg` after other `[include]` statements.
 6. The `dzos.cfg` overrides your `START_PRINT`.
 
 ## CONFIGURATION (OPTIONAL):
-1. If you'd like to adjust your own `START_PRINT`, add the DZOS call: `DZOS_Z_OFFSET TEMP=<INPUT TEMP> SOAK_TIME=<INPUT SECONDS>` just before: `BED_MESH_CALIBRATE_BASE ADAPTIVE=1`. 
+1. If you'd like to adjust your own `START_PRINT`, add the DZOS call: `_DZOS_PRINT TEMP=<INPUT TEMP>` just before: `BED_MESH_CALIBRATE_BASE ADAPTIVE=1`. 
 2. Ensure you slicer is passing the temperature to your `START_PRINT`.
 3. Remove the included `START_PRINT` from the provided `dzos.cfg` macro.
 
@@ -46,8 +46,13 @@
     - **J:** Setup is finished.
 
 ## USAGE:
-1. Print as normal. The Z offset will calculate per print.
-2. Happy testing!
+1. Use the web interface in define heat soak time with `DZOS HEAT SOAK`.
+    - **GUIDELINES:** The estimates below or for a cold printer. Subsequent prints require 0 seconds.
+    - **SMALL:**  0
+    - **MEDIUM/LARGE:** 250-500
+    - **WHOLE BED:** 750
+2. Print as normal. The Z offset will calculate per print.
+3. Happy testing!
 
 ## DISABLE/RE-ENABLE:
 1. `DZOS Disable` macro will stop the code from running. No other changes required.
