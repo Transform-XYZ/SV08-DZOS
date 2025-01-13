@@ -605,7 +605,7 @@ M140 S65 ;set bed temp
 M104 S235 ;set extruder temp
 M190 S65 ;wait for bed temp
 M109 S235;wait for extruder temp
-M117 DZOS: Fix Z Offset..
+M117 DZOS: Fix Z..
 _DZOS_INTERACTION_BEEP
 G1 E25 F300
 G4 P1000
@@ -3242,7 +3242,7 @@ M140 S65 ;set bed temp
 M104 S235 ;set extruder temp
 M190 S65 ;wait for bed temp
 M109 S235;wait for extruder temp
-M117 DZOS: Fix Z Offset..
+M117 DZOS: Fix Z..
 _DZOS_INTERACTION_BEEP
 G1 E25 F300
 G4 P1000
