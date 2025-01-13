@@ -13,20 +13,22 @@
 1. Access the SV08 filesystem. (`user: sovol` - `password: sovol`)
 2. Transfer provided files to their respective folders in `/home/sovol/...`.
 3. Restart Klipper service or hard reboot printer.
-4. Add `[include dzos.cfg]` to your `printer.cfg`.
+4. Add `[include dzos.cfg]` to your `printer.cfg` after other `[include]` statements.
 5. The `dzos.cfg` overrides your `START_PRINT`.
 
-## CONFIGURATION:
-1. If you'd like to adjust your own `START_PRINT`, add the DZOS call: `DZOS_Z_OFFSET TEMP=<INPUT TEMP> SOAK_TIME=<INPUT SECONDS>` just before: `BED_MESH_CALIBRATE ADAPTIVE=1`. 
-2. Remove the included `START_PRINT` from the provided `dzos.cfg` macro.
+## OPTIONAL CONFIGURATION:
+1. If you'd like to adjust your own `START_PRINT`, add the DZOS call: `DZOS_Z_OFFSET TEMP=<INPUT TEMP> SOAK_TIME=<INPUT SECONDS>` just before: `BED_MESH_CALIBRATE_BASE ADAPTIVE=1`. 
+2. Ensure you slicer is passing the temperature to your `START_PRINT`.
+3. Remove the included `START_PRINT` from the provided `dzos.cfg` macro.
 
 ## SETUP:
 1. The setup process for DZOS only needs to be done when required. If you change your nozzle dimensions or probe you need to re-run the setup.
 2. **IMPORTANT:** Wait for your printer to be `cold and at room temperature` for setup.
-3. Navigate to the web interface for your printer.
-4. Under the MACRO section press: `DZOS Enable`. Once pressed hit `SAVE CONFIG` and wait for your printer to restart.
-5. Run the following macro: `DZOS INIT SETUP`.
-6. The setup is in the form of a guided 2-part PLA print. Use the web interface or device screen to view the real-time instructions.
+3. Remove your toolhead cover for better visibility.
+4. Navigate to the web interface for your printer.
+5. Under the MACRO section press: `DZOS Enable`. Once pressed hit `SAVE CONFIG` and wait for your printer to restart.
+6. Now select: `DZOS INIT SETUP`.
+7. The setup is in the form of a guided 2-part PLA print. Use the web interface or device screen to view the real-time instructions.
 
     ### Guided print overview:
     - **PREP:** Clean your nozzle of filament. Load PLA.
