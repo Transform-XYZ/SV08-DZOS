@@ -17,7 +17,7 @@
 4. Edit `printer.cfg`:
     - In `[probe]`, or the saved bottom section, alter this line as follows `z_offset: 0.0`.
     - Add `[include dzos.cfg]` to your `printer.cfg` after other `[include]` lines.
-5. Save `printer.cfg` change sand restart.
+5. Save `printer.cfg` changes and restart.
 
 ## CONFIGURATION (OPTIONAL):
 1. The `dzos.cfg` overrides your `START_PRINT`. This is default but optional.
