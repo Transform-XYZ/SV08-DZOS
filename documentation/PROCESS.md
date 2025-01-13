@@ -8,6 +8,7 @@
 2. File transfer software (examples below):
     - [FileZilla](https://filezilla-project.org/)
     - [winSCP](https://winscp.net/)
+3. Configure your slicer to pass `TEMP=<TEMP FROM SLICER>` to `START_PRINT`
 
 ## INSTALL:
 1. Access the SV08 filesystem. (`user: sovol` - `password: sovol`)
@@ -16,7 +17,7 @@
 4. Add `[include dzos.cfg]` to your `printer.cfg` after other `[include]` statements.
 5. The `dzos.cfg` overrides your `START_PRINT`.
 
-## OPTIONAL CONFIGURATION:
+## CONFIGURATION (OPTIONAL):
 1. If you'd like to adjust your own `START_PRINT`, add the DZOS call: `DZOS_Z_OFFSET TEMP=<INPUT TEMP> SOAK_TIME=<INPUT SECONDS>` just before: `BED_MESH_CALIBRATE_BASE ADAPTIVE=1`. 
 2. Ensure you slicer is passing the temperature to your `START_PRINT`.
 3. Remove the included `START_PRINT` from the provided `dzos.cfg` macro.
