@@ -24,7 +24,7 @@
 
 ## SETUP:
 1. The setup process for DZOS only needs to be done when required. If you change your nozzle dimensions or probe you need to re-run the setup.
-2. **IMPORTANT:** Wait for your printer to be `cold and at room temperature` for setup.
+2. IMPORTANT: Wait for your printer to be `cold and at room temperature` for setup.
 3. Remove your toolhead cover for better visibility.
 4. Navigate to the web interface for your printer.
 5. Under the MACRO section press: `DZOS Enable`. Once pressed hit `SAVE CONFIG` and wait for your printer to restart.
