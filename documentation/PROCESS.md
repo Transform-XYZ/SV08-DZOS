@@ -23,7 +23,7 @@
 3. Remove the included `START_PRINT` from the provided `dzos.cfg` macro.
 
 ## SETUP:
-1. The setup process for DZOS only needs to be done when required. If you change your nozzle dimensions or probe you need to re-run the setup.
+1. The setup for DZOS only needs to be done when required. If you change your nozzle dimensions or probe you need to re-run.
 2. IMPORTANT: Wait for your printer to be `cold and at room temperature` for setup.
 3. Remove your toolhead cover for better visibility.
 4. Navigate to the web interface for your printer.
