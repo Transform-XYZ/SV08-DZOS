@@ -3,6 +3,9 @@
 
 ## RELEASE NOTES:
 
+### 0.1.42
+- Fixed double G28 in START_PRINT example macro if using stock printer profile.
+
 ### 0.1.41
 - Added new _DZOS_PRINT macro for handing printing.
 - Added configurable soak time macro DZOS_SOAK_TIME. Temporarily caches a soak time that will be accessed at print.
