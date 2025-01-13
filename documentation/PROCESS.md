@@ -14,14 +14,16 @@
 1. Access the SV08 filesystem. (`user: sovol` - `password: sovol`)
 2. Transfer provided files to their respective folders in `/home/sovol/...`.
 3. Restart Klipper service or hard reboot printer.
-4. Edit your existing `z_offset` to `0.0` (Not required but makes dialing it easier).
-5. Add `[include dzos.cfg]` to your `printer.cfg` after other `[include]` statements.
-6. The `dzos.cfg` overrides your `START_PRINT`.
+4. Edit `printer.cfg`:
+    - In `[probe]`, or the saved bottom section, alter this line as follows `z_offset: 0.0`.
+    - Add `[include dzos.cfg]` to your `printer.cfg` after other `[include]` lines.
+5. Save `printer.cfg` change sand restart.
 
 ## CONFIGURATION (OPTIONAL):
-1. If you'd like to adjust your own `START_PRINT`, add the DZOS call: `_DZOS_PRINT TEMP=<INPUT TEMP>` just before: `BED_MESH_CALIBRATE_BASE ADAPTIVE=1`. 
-2. Ensure you slicer is passing the temperature to your `START_PRINT`.
-3. Remove the included `START_PRINT` from the provided `dzos.cfg` macro.
+1. The `dzos.cfg` overrides your `START_PRINT`. This is default but optional.
+2. If you want to adjust your own `START_PRINT`, add the DZOS call: `_DZOS_PRINT TEMP=<INPUT TEMP>` just before: `BED_MESH_CALIBRATE_BASE ADAPTIVE=1`. 
+3. Ensure you slicer is passing the temperature to your `START_PRINT`.
+4. Remove the included `START_PRINT` from the provided `dzos.cfg` macro.
 
 ## SETUP:
 1. The setup for DZOS only needs to be done when required. If you change your nozzle dimensions or probe you need to re-run.
