@@ -14,8 +14,9 @@
 1. Access the SV08 filesystem. (`user: sovol` - `password: sovol`)
 2. Transfer provided files to their respective folders in `/home/sovol/...`.
 3. Restart Klipper service or hard reboot printer.
-4. Add `[include dzos.cfg]` to your `printer.cfg` after other `[include]` statements.
-5. The `dzos.cfg` overrides your `START_PRINT`.
+4. Edit your existing `z_offset` to `0.0` (Not required but makes dialing it easier)
+5. Add `[include dzos.cfg]` to your `printer.cfg` after other `[include]` statements.
+6. The `dzos.cfg` overrides your `START_PRINT`.
 
 ## CONFIGURATION (OPTIONAL):
 1. If you'd like to adjust your own `START_PRINT`, add the DZOS call: `DZOS_Z_OFFSET TEMP=<INPUT TEMP> SOAK_TIME=<INPUT SECONDS>` just before: `BED_MESH_CALIBRATE_BASE ADAPTIVE=1`. 
