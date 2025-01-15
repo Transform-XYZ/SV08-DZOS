@@ -1,8 +1,8 @@
 ######################################################################################################################################################################################################
 # DZOS: DYNAMIC Z OFFSET AND SOAK
 # AUTHOR: TRANSFORM
-# DATE: 2025-01-13
-# VERSION: 0.1.42
+# DATE: 2025-01-14
+# VERSION: 0.1.43
 ######################################################################################################################################################################################################
 import json
 import os
@@ -72,7 +72,7 @@ class DZOS:
         if calibration_temp > 0:
             self._set_temperature(calibration_temp, blocking=True)        
         if test_name:
-            self._calculate_static_data(gcmd, test_name, soak_time)
+            self._calculate_static_test(gcmd, test_name, soak_time)
             return            
         if not os.path.exists(static_filepath) or self.pressure_xy == [0,0] or self.dzos_calculated == 0:
             gcmd.respond_info("DZOS: No Static Data Found!")
@@ -84,7 +84,6 @@ class DZOS:
     def cmd_DZOS_Z_CALCULATE(self, gcmd):
         self._init_printer_objects()
         static_data = read_data(static_filepath)
-
         offset_factor, adjustment_factor = optimize_factors(static_data['offset_pressure_rt'], 
                                                             static_data['offset_pressure_at'], 
                                                             static_data['z_offset_rt'], 
@@ -93,6 +92,7 @@ class DZOS:
         static_data["offset_factor"] = offset_factor
         static_data["adjustment_factor"] = adjustment_factor
         write_data(static_filepath, static_data)
+        self._set_z_offset(self.probe_offset_z)
         self.global_configfile.set(self.config_name, "calculated", 1)
         gcmd.respond_info("DZOS: Stored..")
         self._display_msg("DZOS: Stored..")
@@ -104,7 +104,8 @@ class DZOS:
         capture_name = str(gcmd.get("NAME", None))
         toolhead = self.printer.lookup_object('toolhead')
         z_position = toolhead.get_position()[2]
-        z_offset = 10.0 - z_position
+        z_offset = 10.0 - (z_position - self.probe_offset_z)
+        gcmd.respond_info(f"DZOS: Captured Z: {z_offset}")
         if capture_name.lower():
             static_data = read_data(static_filepath)
             static_data[f"z_offset_{capture_name.lower()}"] = z_offset
@@ -132,11 +133,15 @@ class DZOS:
         self._static_adjustment_factor = static_data["adjustment_factor"]
 
 
-    def _calculate_static_data(self, gcmd, test_name, soak_time):
+    def _calculate_static_test(self, gcmd, test_name, soak_time):
         self._heat_soak(duration=soak_time)
         self._display_msg("DZOS: Test..")
-        self._generic_z_probe(gcmd, self.probe_object, x=self.bed_xy[0], y=self.bed_xy[1], zero=True)
-      
+        gcmd.respond_info(f"DZOS: Static Test..")
+        d_bed_z_s1 = self._generic_z_probe(gcmd, self.probe_object, x=self.bed_xy[0], y=self.bed_xy[1])
+        d_bed_z_s2 = self._generic_z_probe(gcmd, self.probe_object, x=self.bed_xy[0], y=self.bed_xy[1])
+        d_bed_z = (d_bed_z_s1 + d_bed_z_s2) / 2
+        self._set_z_zero(d_bed_z)
+
         d_pressure_z_s1 = self._generic_z_probe(gcmd, self.probe_object, x=self.pressure_xy[0], y=self.pressure_xy[1])
         d_pressure_z_s2 = self._generic_z_probe(gcmd, self.probe_object, x=self.pressure_xy[0], y=self.pressure_xy[1])
         d_pressure_z = (d_pressure_z_s1 + d_pressure_z_s2) / 2
@@ -149,11 +154,15 @@ class DZOS:
         offset_pressure = (d_pressure_z - static_b_pressure_z)
         static_data[f"offset_pressure_{test_name.lower()}"] = offset_pressure
         write_data(static_filepath, static_data)
-        self._set_z_offset(static_e_pressure_nozzle + self.probe_offset_z)
+        safe_z_offset = static_e_pressure_nozzle + (0.5 * static_b_pressure_z)
+        self._set_z_offset(safe_z_offset + self.probe_offset_z)
 
 
     def _cache_static(self, gcmd):
-        self._generic_z_probe(gcmd, self.probe_object, x=self.pressure_xy[0], y=self.pressure_xy[1], zero=True)
+        initial_zero_s1 = self._generic_z_probe(gcmd, self.probe_object, x=self.pressure_xy[0], y=self.pressure_xy[1])
+        initial_zero_s2 = self._generic_z_probe(gcmd, self.probe_object, x=self.pressure_xy[0], y=self.pressure_xy[1])
+        initial_zero = (initial_zero_s1 + initial_zero_s2) / 2
+        self._set_z_zero(initial_zero)
         
         e_pressure_nozzle = self._generic_z_probe(gcmd, self.probe_pressure_object, x=self.pressure_nozzle_xy[0], y=self.pressure_nozzle_xy[1])
         e_bed_z_s1 = self._generic_z_probe(gcmd, self.probe_object, x=self.bed_xy[0], y=self.bed_xy[1])
@@ -217,27 +226,23 @@ class DZOS:
         return -target_z_offset
 
 
-    def _generic_z_probe(self, gcmd, probe_object, x, y, zero=False, hop=True):
+    def _generic_z_probe(self, gcmd, probe_object, x, y, hop=True):
         version = str(self.printer.start_args['software_version'])
         if version.startswith('v0.12.0-0-g') or probe_object == self.probe_pressure_object:
-            return self._stock_z_probe(gcmd, probe_object, x, y, zero, hop)
+            return self._stock_z_probe(gcmd, probe_object, x, y, hop)
         else:
-            return self._latest_z_probe(gcmd, probe_object, x, y, zero, hop)
+            return self._latest_z_probe(gcmd, probe_object, x, y, hop)
 
 
-    def _stock_z_probe(self, gcmd, probe_object, x, y, zero=False, hop=True):
+    def _stock_z_probe(self, gcmd, probe_object, x, y, hop=True):
         if hop:
             self._execute_hop_z(self.hop_z)
             self.toolhead.manual_move([x, y, None], self.speed)
         probe_z = probe_object.run_probe(gcmd)[2]
-        if zero:
-            current = list(self.toolhead.get_position())
-            current[2] = current[2] - probe_z
-            self.toolhead.set_position(current)
         return probe_z
 
 
-    def _latest_z_probe(self, gcmd, probe_object, x, y, zero=False, hop=True):
+    def _latest_z_probe(self, gcmd, probe_object, x, y, hop=True):
         if hop:
             self._execute_hop_z(self.hop_z)
             self.toolhead.manual_move([x, y, None], self.speed)
@@ -245,18 +250,7 @@ class DZOS:
         probe_session.run_probe(gcmd)
         probe_z = probe_session.pull_probed_results()[0][2]
         probe_session.end_probe_session()
-        if zero:
-            current = list(self.toolhead.get_position())
-            current[2] = current[2] - probe_z
-            self.toolhead.set_position(current)
         return probe_z
-
-
-    def _move_z_zero(self, gcmd, probe_object, x, y):
-        probe_static_z = self._generic_z_probe(self.toolhead, gcmd, probe_object, x, y)
-        current = list(self.toolhead.get_position())
-        current[2] = current[2] - probe_static_z
-        self.toolhead.set_position(current)
 
     def _set_z_zero(self, z):
         current = list(self.toolhead.get_position())

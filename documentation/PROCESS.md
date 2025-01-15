@@ -12,18 +12,19 @@
 
 ## INSTALL:
 1. Access the SV08 filesystem. (`user: sovol` - `password: sovol`)
-2. Transfer provided files to their respective folders in `/home/sovol/...`.
+2. Transfer folders to `/home/sovol/...`. Overwrite.
 3. Restart Klipper service or hard reboot printer.
 4. Edit `printer.cfg`:
-    - In `[probe]` or the saved bottom section, alter this line as follows `z_offset: 0.0`.
     - Add `[include dzos.cfg]` to your `printer.cfg` after other `[include]` lines.
 5. Save `printer.cfg` changes and restart.
 
 ## CONFIGURATION (OPTIONAL):
 1. The `dzos.cfg` overrides your `START_PRINT`. This is default but optional.
-2. If you want to adjust your own `START_PRINT`, add the DZOS call: `_DZOS_PRINT TEMP=<INPUT TEMP>` just before: `BED_MESH_CALIBRATE_BASE ADAPTIVE=1`. 
-3. Ensure you slicer is passing the temperature to your `START_PRINT`.
-4. Remove the included `START_PRINT` from the provided `dzos.cfg` macro.
+2. If you want to adjust your own `START_PRINT` read the following: 
+    - Make sure you're using the base adaptive bed mesh.
+    - Add the DZOS call: `_DZOS_PRINT TEMP=<INPUT TEMP>` just before: `BED_MESH_CALIBRATE_BASE ADAPTIVE=1`. 
+    - Ensure you slicer is passing the temperature to your `START_PRINT`.
+    - Remove the included `START_PRINT` from the provided `dzos.cfg` macro.
 
 ## SETUP:
 1. The setup for DZOS only needs to be done when required. If you change your nozzle dimensions or probe you need to re-run.
@@ -33,7 +34,6 @@
 5. Under the MACRO section press: `DZOS Enable`. Once pressed hit `SAVE CONFIG` and wait for your printer to restart.
 6. Now select: `DZOS INIT SETUP`.
 7. The setup is in the form of a guided 2-part PLA print. Use the web interface or device screen to view the real-time instructions.
-
     ### Guided print overview:
     - **PREP:** Clean your nozzle of filament. Load PLA.
     - **A:** Printer probe samples at room temperature.
@@ -44,15 +44,15 @@
     - **F:** Automatic capture of user input z offset.
     - **G:** `BEEP - USER INTERACTION - BEEP:` Clean finished print either immediately or during the next step.
     - **H:** 1000 second heat soak at 65C.
-    - **I:** Repeat of D -> F.
-    - **J:** Setup is finished.
+    - **I:** Repeat of C -> F.
+    - **J:** Setup is finished. Printer will reboot.
 
 ## USAGE:
-1. Use the web interface in define heat soak time with `DZOS HEAT SOAK`.
+1. Use the web interface to define heat soak time before your print with `DZOS SOAK TIME`.
     - **GUIDELINES:** The estimates below or for a cold printer. Subsequent prints require 0 seconds.
     - **SMALL:**  0
     - **MEDIUM/LARGE:** 250-500
-    - **WHOLE BED:** 750
+    - **WHOLE BED:** ~750
 2. Print as normal. The Z offset will calculate per print.
 3. Happy testing!
 
@@ -69,5 +69,4 @@
 6. Ensure your `printer.cfg`'s saved variables related to `[dzos]` are removed.
 
 ## ISSUES:
-- May not support mainline klipper. Untested.
 - May not work properly with pause/resume. Untested.

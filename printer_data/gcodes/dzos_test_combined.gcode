@@ -591,7 +591,7 @@ M73 P0 R3
 M117 DZOS: Test RT..
 DZOS_Z_OFFSET TEST="RT" TEMP=65
 M117 DZOS: Mesh..
-BED_MESH_CALIBRATE ADAPTIVE=1
+BED_MESH_CALIBRATE_BASE ADAPTIVE=1
 M117 DZOS: Print RT..
 G90
 G1 X0 F9000
@@ -3200,35 +3200,24 @@ G90
 BED_MESH_CLEAR
 G1 Z10 F3000
 G1 X0 Y360 F9000
-Z_OFFSET_APPLY_PROBE
 DZOS_Z_CAPTURE NAME="RT"
 SET_VELOCITY_LIMIT ACCEL=20000 ACCEL_TO_DECEL=10000
-M117 DZOS: Clean!
-G4 P3000
-_DZOS_INTERACTION_BEEP
-_DZOS_COUNTDOWN TIME=75 NAME="Clean"
-
-
-
 
 
 ######################################################################################################################################################################
 ######################################################################################################################################################################
 ######################################################################################################################################################################
-
-
-
-
-
 
 
 M73 P0 R0
+M117 DZOS: Clean!
+_DZOS_INTERACTION_BEEP
+_DZOS_COUNTDOWN TIME=60 NAME="Clean"
+G4 P3000
 M117 DZOS: Test AT..
-G28
-QUAD_GANTRY_LEVEL_BASE 
 DZOS_Z_OFFSET TEST="AT" TEMP=65 SOAK_TIME=1000
 M117 DZOS: Mesh..
-BED_MESH_CALIBRATE ADAPTIVE=1
+BED_MESH_CALIBRATE_BASE ADAPTIVE=1
 M117 DZOS: Print AT..
 G90
 G1 X0 F9000
@@ -5835,13 +5824,11 @@ M73 P100 R0
 BED_MESH_CLEAR
 G1 Z10 F3000
 G1 X0 Y360 F9000
-Z_OFFSET_APPLY_PROBE
 DZOS_Z_CAPTURE NAME="AT"
-M117 DZOS: Calculate..
+M117 DZOS: Calc..
 DZOS_Z_CALCULATE
-M117 DZOS: Setup Done!
-_DZOS_INTERACTION_BEEP
-G4 P10000
+M117 DZOS: Done!
+G4 P5000
 SAVE_CONFIG
 ; EXECUTABLE_BLOCK_END
 

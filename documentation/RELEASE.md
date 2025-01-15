@@ -2,6 +2,15 @@
 # DZOS: Dynamic Z Offset and Soaking
 
 ## RELEASE NOTES:
+- Updates do not invalidate recorded setups or data.
+
+### 0.1.43
+- Fixed issue that required setting the stored z_offset to 0.0 before running the INIT SETEP.
+- Updated gcode file. Removed redundant actions during the INIT SETUP.
+- Fixed bug with double G28 in _DZOS_PRINT.
+- Improved initial safe Z that auto sets when performing the INIT SETUP.
+- Confirmed mainline support.
+- Added test prints. PLA - Stock SV08 profile.
 
 ### 0.1.42
 - Fixed double G28 in START_PRINT example macro if using stock printer profile.
@@ -51,3 +60,4 @@
 - Bgoat96
 - ZarkHowler
 - ovrCaffeinatd
+- dwmcqueen
