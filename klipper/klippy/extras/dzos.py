@@ -2,7 +2,7 @@
 # DZOS: DYNAMIC Z OFFSET AND SOAK
 # AUTHOR: TRANSFORM
 # DATE: 2025-01-14
-# VERSION: 0.1.43
+# VERSION: 0.1.44
 ######################################################################################################################################################################################################
 import json
 import os
@@ -92,7 +92,7 @@ class DZOS:
         static_data["offset_factor"] = offset_factor
         static_data["adjustment_factor"] = adjustment_factor
         write_data(static_filepath, static_data)
-        self._set_z_offset(self.probe_offset_z)
+        self._set_z_offset(-self.probe_offset_z)
         self.global_configfile.set(self.config_name, "calculated", 1)
         gcmd.respond_info("DZOS: Stored..")
         self._display_msg("DZOS: Stored..")

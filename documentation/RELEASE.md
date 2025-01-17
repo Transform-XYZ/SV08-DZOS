@@ -4,6 +4,11 @@
 ## RELEASE NOTES:
 - Updates do not invalidate recorded setups or data.
 
+### 0.1.44
+- Renamed test files.
+- Updated test prints with more accurate soak times.
+- Improved some elements of INIT SETUP.
+
 ### 0.1.43
 - Fixed issue that required setting the stored z_offset to 0.0 before running the INIT SETEP.
 - Updated gcode file. Removed redundant actions during the INIT SETUP.
