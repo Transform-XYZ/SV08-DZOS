@@ -4,6 +4,10 @@
 ## RELEASE NOTES:
 - Updates do not invalidate recorded setups or data.
 
+### 0.1.45
+- Improved INIT SETUP guided print. Re-added G28 Z and QUAD_GANTRY_LEVEL_BASE to improve accuracy.
+- Imporved support for various klipper/firmware versions.
+
 ### 0.1.44
 - Renamed test files.
 - Updated test prints with more accurate soak times.

@@ -135,6 +135,11 @@ class DZOS:
 
     def _calculate_static_test(self, gcmd, test_name, soak_time):
         self._heat_soak(duration=soak_time)
+        self._display_msg("DZOS: Level..")
+        gcmd.respond_info(f"DZOS: Level..")      
+        self._execute_hop_z(self.hop_z)
+        self._home(axes="Z")
+        self._quad_gantry_level()
         self._display_msg("DZOS: Test..")
         gcmd.respond_info(f"DZOS: Static Test..")
         d_bed_z_s1 = self._generic_z_probe(gcmd, self.probe_object, x=self.bed_xy[0], y=self.bed_xy[1])
@@ -228,10 +233,10 @@ class DZOS:
 
     def _generic_z_probe(self, gcmd, probe_object, x, y, hop=True):
         version = str(self.printer.start_args['software_version'])
-        if version.startswith('v0.12.0-0-g') or probe_object == self.probe_pressure_object:
-            return self._stock_z_probe(gcmd, probe_object, x, y, hop)
-        else:
+        try:
             return self._latest_z_probe(gcmd, probe_object, x, y, hop)
+        except:
+            return self._stock_z_probe(gcmd, probe_object, x, y, hop)
 
 
     def _stock_z_probe(self, gcmd, probe_object, x, y, hop=True):
@@ -296,6 +301,16 @@ class DZOS:
             self.heater_bed.cmd_M190(gcmd_heater_set)
         else:
             self.heater_bed.cmd_M140(gcmd_heater_set)
+
+    def _quad_gantry_level(self):
+        gcmd_qgl = self.gcode.create_gcode_command("QUAD_GANTRY_LEVEL", "QUAD_GANTRY_LEVEL", {})
+        qgl = self.printer.lookup_object('quad_gantry_level')
+        qgl.cmd_QUAD_GANTRY_LEVEL(gcmd_qgl)
+
+    def _home(self, axes="Z"):
+        gcmd_home = self.gcode.create_gcode_command("G28", "G28", {axes: None})
+        home = self.printer.lookup_object('homing_override')
+        home.cmd_G28(gcmd_home)
 
 
 def load_config(config):

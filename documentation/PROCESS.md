@@ -64,7 +64,7 @@
 1. Remove `/home/sovol/printer_data/config/dzos.cfg`
 2. Remove `/home/sovol/printer_data/config/dzos_print_data.json`
 3. Remove `/home/sovol/printer_data/config/dzos_static_data.json`
-4. Remove `/home/sovol/printer_data/gcodes/dzos_test_combined.gcode`
+4. Remove `/home/sovol/printer_data/gcodes/dzos_test_*.gcode`
 5. Remove `/home/sovol/klipper/klippy/extras/dzos.py`
 6. Ensure your `printer.cfg`'s saved variables related to `[dzos]` are removed.
 
