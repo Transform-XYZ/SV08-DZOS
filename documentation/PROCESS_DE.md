@@ -7,11 +7,24 @@
 2. Software für Dateiübertragungen (Beispiele unten):
     - [FileZilla](https://filezilla-project.org/)
     - [winSCP](https://winscp.net/)
-3. Konfiguriere deinen Slicer so, dass `TEMP=<TEMP FROM SLICER>` an `START_PRINT` übergeben wird.
+3. Konfiguriere deinen Slicer so, dass `TEMP=<TEMP FROM SLICER>` an `START_PRINT` übergeben wird.   
+- Orca Slicer: `START_PRINT TEMP={first_layer_bed_temperature}`
+- PrusaSlicer / SuperSlicer / Bambu Studio: `START_PRINT TEMP=[first_layer_bed_temperature]`
+- Cura: `START_PRINT TEMP={material_bed_temperature_layer_0}`
+- IdeaMaker: `START_PRINT TEMP={bed_temperature}`
+
+## 📥 Die GitHub-Repository als ZIP-Datei herunterladen  
+(Gehe ggf. zum Root-Verzeichnis des Repositories, indem du auf den „Code“-Tab oben klickst.)
+
+1. **Klicke auf den grünen Button „Code“ (oben rechts).**  
+2. **Wähle „Download ZIP“ aus der Dropdown-Liste.**  
+3. **Die ZIP-Datei wird nun heruntergeladen.**  
+4. **Entpacke die Datei** auf deinem Computer mit einem Doppelklick oder einer Entpack-Software wie WinRAR, 7-Zip oder dem integrierten Datei-Explorer.  
+Nun hast du das komplette Repository lokal und kannst mit den Dateien arbeiten. 
 
 ## INSTALLATION:
 1. Auf das Dateisystem des SV08 zugreifen (`Benutzer: sovol` – `Passwort: sovol`).
-2. Ordner nach `/home/sovol/...` übertragen und vorhandene Dateien überschreiben.
+2. Ordner `klipper` und `printer_data` aus der gerade entpackte ZIP Datei nach `/home/sovol/...` übertragen und vorhandene Dateien überschreiben.
 3. Klipper-Dienst neu starten oder den Drucker vollständig neu starten.
 4. `printer.cfg` bearbeiten:
     - Füge `[include dzos.cfg]` in `printer.cfg` nach den anderen `[include]`-Zeilen ein.
