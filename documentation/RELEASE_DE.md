@@ -1,73 +1,73 @@
-
 ![LOGO](./images/dzos_logo.png)
 
-# DZOS: Dynamic Z Offset and Soaking
+# DZOS: Dynamischer Z-Versatz und Temperatur-Soaking
 
-## PRE-REQUISITES:
-1. SV08 3D Printer with an inductive sensor.
-2. File transfer software (examples below):
+## VORAUSSETZUNGEN:
+1. SV08 3D-Drucker mit einem induktiven Sensor.
+2. Software für Dateiübertragungen (Beispiele unten):
     - [FileZilla](https://filezilla-project.org/)
     - [winSCP](https://winscp.net/)
-3. Configure your slicer to pass `TEMP=<TEMP FROM SLICER>` to `START_PRINT`
+3. Konfiguriere deinen Slicer so, dass `TEMP=<TEMP FROM SLICER>` an `START_PRINT` übergeben wird.
 
-## INSTALL:
-1. Access the SV08 filesystem. (`user: sovol` - `password: sovol`)
-2. Transfer folders to `/home/sovol/...`. Overwrite.
-3. Restart Klipper service or hard reboot printer.
-4. Edit `printer.cfg`:
-    - Add `[include dzos.cfg]` to your `printer.cfg` after other `[include]` lines.
-5. Save `printer.cfg` changes and restart.
+## INSTALLATION:
+1. Auf das Dateisystem des SV08 zugreifen (`Benutzer: sovol` – `Passwort: sovol`).
+2. Ordner nach `/home/sovol/...` übertragen und vorhandene Dateien überschreiben.
+3. Klipper-Dienst neu starten oder den Drucker vollständig neu starten.
+4. `printer.cfg` bearbeiten:
+    - Füge `[include dzos.cfg]` in `printer.cfg` nach den anderen `[include]`-Zeilen ein.
+5. Änderungen in `printer.cfg` speichern und Drucker neu starten.
 
-## CONFIGURATION (OPTIONAL):
-1. The `dzos.cfg` overrides your `START_PRINT`. This is default but optional.
-2. If you want to adjust your own `START_PRINT` read the following: 
-    - Make sure you're using the base adaptive bed mesh.
-    - Add the DZOS call: `_DZOS_PRINT TEMP=<INPUT TEMP>` just before: `BED_MESH_CALIBRATE_BASE ADAPTIVE=1`. 
-    - Ensure you slicer is passing the temperature to your `START_PRINT`.
-    - Remove the included `START_PRINT` from the provided `dzos.cfg` macro.
+## KONFIGURATION (OPTIONAL):
+1. Die `dzos.cfg` überschreibt dein `START_PRINT`. Dies ist standardmäßig aktiviert, aber optional.
+2. Falls du dein eigenes `START_PRINT` anpassen möchtest, beachte Folgendes:
+    - Stelle sicher, dass du das adaptive Bett-Mesh verwendest.
+    - Füge den DZOS-Befehl `_DZOS_PRINT TEMP=<INPUT TEMP>` direkt vor `BED_MESH_CALIBRATE_BASE ADAPTIVE=1` hinzu.
+    - Stelle sicher, dass dein Slicer die Temperatur korrekt an `START_PRINT` übergibt.
+    - Entferne das mitgelieferte `START_PRINT`-Makro aus `dzos.cfg`.
 
-## SETUP:
-1. The setup for DZOS only needs to be done when required. If you change your nozzle dimensions or probe you need to re-run.
-2. IMPORTANT: Wait for your printer to be `cold and at room temperature` for setup.
-3. Remove your toolhead cover for better visibility.
-4. Navigate to the web interface for your printer.
-5. Under the MACRO section press: `DZOS Enable`. Once pressed hit `SAVE CONFIG` and wait for your printer to restart.
-6. Now select: `DZOS INIT SETUP`.
-7. The setup is in the form of a guided 2-part PLA print. Use the web interface or device screen to view the real-time instructions.
-    ### Guided print overview:
-    - **PREP:** Clean your nozzle of filament. Load PLA.
-    - **A:** Printer probe samples at room temperature.
-    - **B:** Temperature rises to 65C.
-    - **C:** Printer probe samples.
-    - **D:** Adaptive bed mesh and then a test print begins.
-    - **E:** `BEEP - USER INTERACTION - BEEP:` Adjust z offset to your desired z offset as the print prints.
-    - **F:** Automatic capture of user input z offset.
-    - **G:** `BEEP - USER INTERACTION - BEEP:` Clean finished print either immediately or during the next step.
-    - **H:** 1000 second heat soak at 65C.
-    - **I:** Repeat of C -> F.
-    - **J:** Setup is finished. Printer will reboot.
+## EINRICHTUNG:
+1. Die DZOS-Einrichtung ist nur erforderlich, wenn du deine Düsengröße oder den Sensor änderst.
+2. WICHTIG: Der Drucker muss **kalt und auf Raumtemperatur** sein.
+3. Werkzeugkopf-Abdeckung entfernen, um bessere Sicht zu haben.
+4. Web-Oberfläche des Druckers aufrufen.
+5. Im Makro-Menü auf `DZOS Enable` klicken, dann `SAVE CONFIG` drücken und warten, bis der Drucker neu startet.
+6. Danach `DZOS INIT SETUP` auswählen.
+7. Die Einrichtung erfolgt in einem geführten 2-stufigen PLA-Druckprozess. Die Web-Oberfläche oder das Drucker-Display zeigt Echtzeit-Anweisungen an.
 
-## USAGE:
-1. Use the web interface to define heat soak time before your print with `DZOS SOAK TIME`.
-    - **GUIDELINES:** The estimates below or for a cold printer. Subsequent prints require 0 seconds.
-    - **SMALL:**  0
-    - **MEDIUM/LARGE:** 500-1000
-    - **WHOLE BED:** ~1500
-2. Print as normal. The Z offset will calculate per print.
-3. Happy testing!
+    ### Übersicht des geführten Drucks:
+    - **VORBEREITUNG:** Düse von Filamentrückständen reinigen, PLA laden.
+    - **A:** Der Sensor misst bei Raumtemperatur.
+    - **B:** Die Temperatur steigt auf 65 °C.
+    - **C:** Der Sensor misst erneut.
+    - **D:** Adaptive Bett-Mesh-Kalibrierung und Start eines Testdrucks.
+    - **E:** `BEEP - NUTZEREINGABE ERFORDERLICH - BEEP`: Während des Drucks den Z-Versatz manuell nachjustieren.
+    - **F:** Automatische Speicherung des eingestellten Z-Versatzes.
+    - **G:** `BEEP - NUTZEREINGABE ERFORDERLICH - BEEP`: Gedrucktes Teil entfernen (sofort oder später).
+    - **H:** 1000 Sekunden Wärme-Soaking bei 65 °C.
+    - **I:** Wiederholung von C → F.
+    - **J:** Einrichtung abgeschlossen. Der Drucker startet neu.
 
-## DISABLE/RE-ENABLE:
-1. `DZOS Disable` macro will stop the code from running. No other changes required.
-2. `DZOS Enable` macro will re-enable usage. You do not have to re-run the setup.
+## VERWENDUNG:
+1. Die Wärmeeinwirkzeit vor dem Druck in der Web-Oberfläche mit `DZOS SOAK TIME` einstellen.
+    - **RICHTWERTE:** Werte für einen kalten Drucker, spätere Drucke benötigen 0 Sekunden.
+    - **KLEIN:** 0
+    - **MITTEL/GROß:** 500–1000
+    - **GESAMTES BETT:** ~1500
+2. Druck wie gewohnt starten. Der Z-Versatz wird automatisch pro Druck berechnet.
+3. Viel Erfolg beim Drucken!
 
-## UNINSTALL:
-1. Remove `/home/sovol/printer_data/config/dzos.cfg`
-2. Remove `/home/sovol/printer_data/config/dzos_print_data.json`
-3. Remove `/home/sovol/printer_data/config/dzos_static_data.json`
-4. Remove `/home/sovol/printer_data/gcodes/dzos_test_*.gcode`
-5. Remove `/home/sovol/klipper/klippy/extras/dzos.py`
-6. Ensure your `printer.cfg`'s saved variables related to `[dzos]` are removed.
+## DEAKTIVIEREN / REAKTIVIEREN:
+1. `DZOS Disable`-Makro deaktiviert DZOS – keine weiteren Änderungen nötig.
+2. `DZOS Enable`-Makro aktiviert DZOS erneut, ohne dass die Einrichtung wiederholt werden muss.
 
-## ISSUES:
-- May not work properly with pause/resume. Untested.
+## DEINSTALLATION:
+1. Entferne folgende Dateien:
+    - `/home/sovol/printer_data/config/dzos.cfg`
+    - `/home/sovol/printer_data/config/dzos_print_data.json`
+    - `/home/sovol/printer_data/config/dzos_static_data.json`
+    - `/home/sovol/printer_data/gcodes/dzos_test_*.gcode`
+    - `/home/sovol/klipper/klippy/extras/dzos.py`
+2. Entferne alle `[dzos]`-bezogenen Variablen in `printer.cfg`.
 
+## BEKANNTE PROBLEME:
+- Pause/Wiederaufnahme (Pause/Resume) wurde nicht getestet und könnte Probleme verursachen.
