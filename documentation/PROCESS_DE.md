@@ -8,7 +8,7 @@
     - [FileZilla](https://filezilla-project.org/)
     - [winSCP](https://winscp.net/)
 3. Konfiguriere deinen Slicer so, dass `TEMP=<TEMP FROM SLICER>` an `START_PRINT` übergeben wird.   
-- Orca Slicer: `START_PRINT TEMP={first_layer_bed_temperature}`
+- Orca Slicer: `START_PRINT TEMP=[hot_plate_temp_initial_layer]`
 - PrusaSlicer / SuperSlicer / Bambu Studio: `START_PRINT TEMP=[first_layer_bed_temperature]`
 - Cura: `START_PRINT TEMP={material_bed_temperature_layer_0}`
 - IdeaMaker: `START_PRINT TEMP={bed_temperature}`
